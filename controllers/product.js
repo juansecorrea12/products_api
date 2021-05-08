@@ -25,8 +25,8 @@ const saveProduct = ((req, res) => {
     console.log(req.body);
 
     let product = new Product();
-    let {name, picture, price, category, description} = req.body;
-    product.name = name;
+    let {nombre, picture, price, category, description} = req.body;
+    product.nombre = nombre;
     product.picture = picture;
     product.price = price;
     product.category = category;
