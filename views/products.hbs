@@ -1,6 +1,27 @@
+<div class="container mt-5">
+    <div class="bordered">
+        <h1>Productos</h1>
+        <div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">categoría</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="body-table">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
-    let productList = document.createElement('ul');
+    let productList = document.createElement('tr');
 
     const myHeaders = new Headers();
     myHeaders.append('authorization', `Bearer ${localStorage.token}`);
@@ -9,17 +30,20 @@
         method: 'GET',
         headers: myHeaders
     })
-    .then(res => res.json())
-    .then(data => {
-        data.products.map(product => {
-            let text = document.createTextNode(product.nombre);
-            let elem = document.createElement('li');
-
-            elem.appendChild(text);
-            productList.appendChild(elem);
+        .then(res => res.json())
+        .then(data => {
+            data.products.map(product => {
+                let productList = document.createElement('tr');
+                productList.innerHTML = `
+                        <td>${product.nombre}</td>
+                        <td>${product.category}</td>
+                        <td>${product.description}</td>
+                        <td>$ ${product.price}</td>
+                `
+                console.log(product);
+                products = document.querySelector('#body-table');
+                products.append(productList);
+            })
         })
-
-        document.body.appendChild(productList);
-    })
 
 </script>
